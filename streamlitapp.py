@@ -10,8 +10,12 @@ load_dotenv(env_path)
 
 # Initialize OpenAI client
 client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-MAX_HISTORY_LENGTH = 10
 
+
+#Sidebar controls for model and temperature 
+model_name = st.sidebar.selectbox("Choose the model",["gpt-3.5","gpt-3.5-turbo","gpt-4o"],index=1)
+temperature = st.sidebar.slider("Set Temperature", min_value=0.0,max_value=1.0,value=0.7,step=0.1) 
+MAX_HISTORY_LENGTH = int(st.sidebar.number_input("Max History Length",min_value=1,max_value=10,value=3))
 def save_chat_history(chat_history):
     """Save chat history to a file"""
     try:
@@ -34,8 +38,8 @@ def stream_chat_response(message, chat_history):
     """Stream the chat response from OpenAI API"""
     stream = client.chat.completions.create(
         messages=chat_history,
-        model="gpt-3.5-turbo",
-        temperature=0.7,
+        model=model_name,
+        temperature=temperature,
         stream=True
     )
     
