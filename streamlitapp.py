@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 import streamlit as st
 import json
-
+from streamlit_feedback import streamlit_feedback
 # Load environment variables
 env_path = os.path.join('.env')
 load_dotenv(env_path)
@@ -116,6 +116,7 @@ def main():
                 "content": full_response
             })
             
+            feedback=streamlit_feedback(feedback_type="thumbs",optional_text_label="[Optional] Please provide an explanation",key=f"feedback_{len(st.session_state.chat_history)}",)
             # Save updated chat history
             save_chat_history(st.session_state.chat_history)
             

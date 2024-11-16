@@ -1,3 +1,5 @@
-openai
-python-dotenv
 streamlit
+streamlit-feedback
+pandas
+python-dotenv
+openai
